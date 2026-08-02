@@ -28,7 +28,7 @@ INSTAGRAM_CHANNEL = "68fff718669affb4c98b8324"
 
 CAROUSELS_PER_WEEK = 7
 MIN_BUFFER_FOLDERS = 14        # render more when fewer than this remain unqueued
-RENDER_BATCH_QUESTIONS = 80    # 20 carousels
+RENDER_BATCH_QUESTIONS = 48    # 12 carousels; endpoint caps limit at 50
 
 DRY = "--dry-run" in sys.argv
 
@@ -62,7 +62,11 @@ def feed_get(cfg, resource, limit=None):
     url = f"{cfg['FEED_URL']}?resource={resource}"
     if limit:
         url += f"&limit={limit}"
-    return get_json(url, {"x-automation-token": cfg["AUTOMATION_API_TOKEN"]})
+    data = get_json(url, {"x-automation-token": cfg["AUTOMATION_API_TOKEN"]})
+    # endpoint wraps rows: {"resource":..., "count":N, "candidates":[...]}
+    if isinstance(data, dict):
+        return data.get("candidates", data.get("data", []))
+    return data
 
 
 def feed_mark(cfg, ids):
@@ -119,6 +123,30 @@ def alt_lines(folder):
     return out
 
 
+class Enum(str):
+    """Marks a value that must appear unquoted in GraphQL (e.g. an enum)."""
+
+
+def gql(v):
+    """Serialise a Python value as a GraphQL literal.
+    Object keys are unquoted, strings are quoted, Enum values are raw."""
+    if isinstance(v, Enum):
+        return str(v)
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return str(v)
+    if isinstance(v, str):
+        return json.dumps(v)
+    if isinstance(v, list):
+        return "[" + ", ".join(gql(x) for x in v) + "]"
+    if isinstance(v, dict):
+        return "{" + ", ".join(f"{k}: {gql(x)}" for k, x in v.items()) + "}"
+    if v is None:
+        return "null"
+    raise TypeError(f"cannot serialise {type(v)}")
+
+
 def buffer_post(cfg, channel, folder, ratio, caption, title=None):
     alts = alt_lines(folder)
     assets = []
@@ -127,18 +155,33 @@ def buffer_post(cfg, channel, folder, ratio, caption, title=None):
         assets.append({"image": {
             "url": f"{RAW}/{folder}/{folder}_{ratio}_{n}.jpg",
             "metadata": {"altText": alts.get(n, f"Quiz Lizard carousel slide {i}")}}})
-    payload = {"channelId": channel, "text": caption, "assets": assets,
-               "saveToDraft": True, "schedulingType": "automatic"}
+
+    inp = {"text": caption, "channelId": channel, "assets": assets,
+           "schedulingType": Enum("automatic"), "mode": Enum("addToQueue"),
+           "saveToDraft": True}
     if ratio == "9x16":
-        payload["metadata"] = {"tiktok": {"title": title or "Quiz Lizard"}}
+        inp["metadata"] = {"tiktok": {"title": title or "Quiz Lizard"}}
     else:
-        payload["metadata"] = {"instagram": {"type": "post", "shouldShareToFeed": True}}
+        inp["metadata"] = {"instagram": {"type": Enum("post"), "shouldShareToFeed": True}}
+
+    query = ("mutation CreatePost { createPost(input: " + gql(inp) + ")"
+             " { ... on PostActionSuccess { post { id status } }"
+             "   ... on MutationError { message } } }")
+
     if DRY:
         print(f"    [dry-run] would create {ratio} draft for {folder}")
         return {"id": "dry-run"}
-    return post_json("https://api.bufferapp.com/2/updates/create.json", payload,
-                     {"Authorization": f"Bearer {cfg['BUFFER_TOKEN']}",
-                      "Content-Type": "application/json"})
+
+    res = post_json("https://api.buffer.com", {"query": query},
+                    {"Authorization": f"Bearer {cfg['BUFFER_TOKEN']}",
+                     "Content-Type": "application/json"})
+    if res.get("errors"):
+        raise SystemExit(f"Buffer rejected {folder} ({ratio}):\n"
+                         + json.dumps(res["errors"], indent=1)[:800])
+    payload = (res.get("data") or {}).get("createPost") or {}
+    if payload.get("message"):
+        raise SystemExit(f"Buffer error on {folder} ({ratio}): {payload['message']}")
+    return payload.get("post", {})
 
 
 def git(*args):
