@@ -7,8 +7,8 @@ Deterministic - no AI in the loop. Intended to run from Windows Task Scheduler.
 
 Credentials come from a .env file beside this script (never commit it):
 
-    SUPABASE_URL=https://<project>.supabase.co
-    SUPABASE_KEY=<service role key>
+    FEED_URL=https://<project>.supabase.co/functions/v1/automation-feed
+    AUTOMATION_API_TOKEN=<token from Lovable>
     BUFFER_TOKEN=<buffer api key>
 
 Usage:
@@ -42,11 +42,36 @@ def env():
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
                 cfg[k.strip()] = v.strip()
-    for k in ("SUPABASE_URL", "SUPABASE_KEY", "BUFFER_TOKEN"):
+    for k in ("FEED_URL", "AUTOMATION_API_TOKEN", "BUFFER_TOKEN"):
         cfg.setdefault(k, os.environ.get(k, ""))
         if not cfg[k]:
-            sys.exit(f"Missing {k}. Add it to {envfile} or the environment.")
+            sys.exit(f"Missing {k}. Set it as a GitHub secret, or in {envfile} for local runs.")
     return cfg
+
+
+def get_json(url, headers):
+    req = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode() or "[]")
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"HTTP {e.code} calling {url}\n{e.read().decode()[:600]}")
+
+
+def feed_get(cfg, resource, limit=None):
+    url = f"{cfg['FEED_URL']}?resource={resource}"
+    if limit:
+        url += f"&limit={limit}"
+    return get_json(url, {"x-automation-token": cfg["AUTOMATION_API_TOKEN"]})
+
+
+def feed_mark(cfg, ids):
+    if DRY or not ids:
+        print(f"    [dry-run] would mark {len(ids)} questions used")
+        return
+    post_json(cfg["FEED_URL"], {"resource": "mark-posted", "ids": ids},
+              {"x-automation-token": cfg["AUTOMATION_API_TOKEN"],
+               "Content-Type": "application/json"})
 
 
 def post_json(url, payload, headers):
@@ -59,15 +84,18 @@ def post_json(url, payload, headers):
         raise SystemExit(f"HTTP {e.code} calling {url}\n{e.read().decode()[:600]}")
 
 
-def sql(cfg, statement):
-    """Run SQL through Supabase's RPC endpoint. Requires the exec_sql function
-    (see README) - Supabase has no generic SQL-over-REST endpoint."""
-    return post_json(
-        f"{cfg['SUPABASE_URL']}/rest/v1/rpc/exec_sql",
-        {"statement": statement},
-        {"apikey": cfg["SUPABASE_KEY"],
-         "Authorization": f"Bearer {cfg['SUPABASE_KEY']}",
-         "Content-Type": "application/json"})
+STATE = HERE / "state.json"
+
+
+def state_get():
+    if STATE.exists():
+        return json.loads(STATE.read_text())
+    return {"last_scheduled_carousel": "c00"}
+
+
+def state_set(folder):
+    if not DRY:
+        STATE.write_text(json.dumps({"last_scheduled_carousel": folder}, indent=1))
 
 
 def folders():
@@ -122,10 +150,7 @@ def git(*args):
 
 def render_more(cfg):
     print("Rendering a new batch...")
-    rows = sql(cfg, f"""
-        SELECT question_id, question_text, breakdown FROM social_candidates
-        WHERE review_status='approved' AND used_at IS NULL
-        ORDER BY margin DESC, respondents DESC LIMIT {RENDER_BATCH_QUESTIONS}""")
+    rows = feed_get(cfg, "social-candidates", RENDER_BATCH_QUESTIONS)
     if not rows:
         print("  No approved questions left. Swipe more in the admin panel.")
         return []
@@ -144,9 +169,8 @@ def render_more(cfg):
         subprocess.run([sys.executable, str(HERE / "build.py"),
                         str(qfile), str(start), str(REPO)], check=True)
     new = [f for f in folders() if int(f[1:]) > start]
-    if new and not DRY:
-        sql(cfg, "UPDATE social_candidates SET used_at = now() WHERE question_id IN ('"
-            + "','".join(ids) + "')")
+    if new:
+        feed_mark(cfg, ids)
     return new
 
 
@@ -156,8 +180,7 @@ def main():
     if not all_folders:
         sys.exit(f"No carousel folders found in {REPO}")
 
-    pos = sql(cfg, "SELECT value FROM app_config WHERE key='last_scheduled_carousel'")
-    last = pos[0]["value"] if pos else "c00"
+    last = state_get()["last_scheduled_carousel"]
     remaining = [f for f in all_folders if int(f[1:]) > int(last[1:])]
     print(f"{len(all_folders)} carousels on disk, last queued {last}, {len(remaining)} unqueued")
 
@@ -188,9 +211,7 @@ def main():
         buffer_post(cfg, TIKTOK_CHANNEL, folder, "9x16", cap_tt, title)
         buffer_post(cfg, INSTAGRAM_CHANNEL, folder, "4x5", cap_ig)
 
-    if not DRY:
-        sql(cfg, "UPDATE app_config SET value='%s', updated_at=now() "
-                 "WHERE key='last_scheduled_carousel'" % batch[-1])
+    state_set(batch[-1])
     print(f"Queued {len(batch)} carousels as drafts, through {batch[-1]}.")
     print("Review and promote them in Buffer before they publish.")
 
