@@ -1,0 +1,9 @@
+c05_*_01: Quiz question: What is a 'meme' in its original, pre-internet definition coined by Richard Dawkins? Four options: A A self-replicating idea, B A viral phenomenon, C A unit of cultural transmission, D A humorous image with text
+c05_*_02: Answer slide. What is a 'meme' in its original, pre-internet definition coined by Richard Dawkins? Correct answer: A unit of cultural transmission, chosen by 15 percent. Full vote: A self-replicating idea 55 percent, A viral phenomenon 15 percent, A unit of cultural transmission 15 percent, A humorous image with text 15 percent
+c05_*_03: Quiz question: How many countries border Hungary? Four options: A 4, B 7, C 6, D 2
+c05_*_04: Answer slide. How many countries border Hungary? Correct answer: 7, chosen by 15 percent. Full vote: 4 55 percent, 7 15 percent, 6 20 percent, 2 10 percent
+c05_*_05: Quiz question: In 1946, which country issued the highest denomination banknote ever, the 100 Quintillion Pengo? Four options: A Zimbabwe, B Argentina, C Yugoslavia, D Hungary
+c05_*_06: Answer slide. In 1946, which country issued the highest denomination banknote ever, the 100 Quintillion Pengo? Correct answer: Hungary, chosen by 5 percent. Full vote: Zimbabwe 45 percent, Argentina 40 percent, Yugoslavia 10 percent, Hungary 5 percent
+c05_*_07: Quiz question: The Greek Chimera was a hybrid of a lion, snake, and what other animal's head on its back? Four options: A Goat, B Eagle, C Bear, D Bull
+c05_*_08: Answer slide. The Greek Chimera was a hybrid of a lion, snake, and what other animal's head on its back? Correct answer: Goat, chosen by 20 percent. Full vote: Goat 20 percent, Eagle 60 percent, Bear 15 percent, Bull 5 percent
+c05_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

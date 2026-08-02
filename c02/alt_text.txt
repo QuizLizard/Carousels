@@ -1,0 +1,9 @@
+c02_*_01: Quiz question: What fast food chain has the most locations globally? Four options: A McDonald's, B Mixue Ice Cream & Tea, C Subway, D Starbucks
+c02_*_02: Answer slide. What fast food chain has the most locations globally? Correct answer: Mixue Ice Cream & Tea, chosen by 5 percent. Full vote: McDonald's 55 percent, Mixue Ice Cream & Tea 5 percent, Subway 25 percent, Starbucks 15 percent
+c02_*_03: Quiz question: The 16 feathers used in an official badminton shuttlecock must all come from which wing of a goose? Four options: A The tail feathers, B A mix of both wings, C The right wing, D The left wing
+c02_*_04: Answer slide. The 16 feathers used in an official badminton shuttlecock must all come from which wing of a goose? Correct answer: The left wing, chosen by 10 percent. Full vote: The tail feathers 60 percent, A mix of both wings 20 percent, The right wing 10 percent, The left wing 10 percent
+c02_*_05: Quiz question: What is the world's largest retailer as of 2025? Four options: A Walmart, B Amazon, C Target, D Costco
+c02_*_06: Answer slide. What is the world's largest retailer as of 2025? Correct answer: Walmart, chosen by 25 percent. Full vote: Walmart 25 percent, Amazon 75 percent, Target 0 percent, Costco 0 percent
+c02_*_07: Quiz question: After a vote in early 2024, which Nordic country was officially approved to become NATO's 32nd member? Four options: A Finland, B Switzerland, C Sweden, D Ireland
+c02_*_08: Answer slide. After a vote in early 2024, which Nordic country was officially approved to become NATO's 32nd member? Correct answer: Sweden, chosen by 20 percent. Full vote: Finland 75 percent, Switzerland 5 percent, Sweden 20 percent, Ireland 0 percent
+c02_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

@@ -1,0 +1,9 @@
+c37_*_01: Quiz question: Which famous singer was portrayed by actor Kevin Spacey in the 2004 biographical film 'Beyond the Sea'? Four options: A Dean Martin, B Bobby Darin, C Frank Sinatra, D Louis Armstrong
+c37_*_02: Answer slide. Which famous singer was portrayed by actor Kevin Spacey in the 2004 biographical film 'Beyond the Sea'? Correct answer: Bobby Darin, chosen by 35 percent. Full vote: Dean Martin 40 percent, Bobby Darin 35 percent, Frank Sinatra 20 percent, Louis Armstrong 5 percent
+c37_*_03: Quiz question: The Chinese velveting technique to tenderise meat for stir-fries uses which common pantry staple? Four options: A Rice vinegar, B Baking soda, C Sugar, D Cornflour
+c37_*_04: Answer slide. The Chinese velveting technique to tenderise meat for stir-fries uses which common pantry staple? Correct answer: Cornflour, chosen by 40 percent. Full vote: Rice vinegar 45 percent, Baking soda 10 percent, Sugar 5 percent, Cornflour 40 percent
+c37_*_05: Quiz question: An Olympic-sized swimming pool must contain a minimum of how many litres of water? Four options: A 2,500,000 litres, B 3,000,000 litres, C 5,000,000 litres, D 1,500,000 litres
+c37_*_06: Answer slide. An Olympic-sized swimming pool must contain a minimum of how many litres of water? Correct answer: 2,500,000 litres, chosen by 40 percent. Full vote: 2,500,000 litres 40 percent, 3,000,000 litres 45 percent, 5,000,000 litres 10 percent, 1,500,000 litres 5 percent
+c37_*_07: Quiz question: In hexadecimal, what colour would be displayed from the colour code '#00FF00'? Four options: A Yellow, B Red, C Green, D Blue
+c37_*_08: Answer slide. In hexadecimal, what colour would be displayed from the colour code '#00FF00'? Correct answer: Green, chosen by 25 percent. Full vote: Yellow 30 percent, Red 30 percent, Green 25 percent, Blue 15 percent
+c37_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

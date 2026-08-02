@@ -119,3 +119,111 @@
 2. Which of these terms was coined by the Beastie Boys?
 3. As of early 2024, which of the Chasers on ITV's 'The Chase' holds the highest overall win percentage against contestants?
 4. The nautical speed unit 'knot' gets its name from knots tied in a rope thrown from a ship with what object?
+
+## c21  (correct slots: CADB)
+1. The Caesar Salad is named for its creator, Caesar Cardini, who invented it in which country?
+2. Who played the dual roles of identical twin magicians, Robert Angier and his 'double', in 'The Prestige'?
+3. In surfing, what does the term 'hang ten' mean?
+4. In the equestrian sport of dressage, what is the term for the highly collected trot-like movement performed in place?
+
+## c22  (correct slots: BDAC)
+1. The 1956 Melbourne Olympics held its equestrian events over 9,000 miles away in what country?
+2. Which Beatle wrote and sang 'Why Don't We Do It in the Road' after seeing two monkeys in the street?
+3. What item of clothing did the 'Swedish Chef' from The Muppets never wear?
+4. James Watt defined 'horsepower' by observing ponies lifting coal and multiplying their power by what factor?
+
+## c23  (correct slots: ADBC)
+1. The Swedish term 'Gokotta' means to wake up early for what specific purpose?
+2. What is the name of the tiny, uninhabited granite islet in the North Atlantic claimed by the UK?
+3. The name of the digital pet 'Tamagotchi' is a portmanteau of two Japanese words meaning what?
+4. Which Balkan nation shares a border with North Macedonia?
+
+## c24  (correct slots: DBCA)
+1. 'Feel Good Inc.' by Gorillaz features the distinctive laugh of a member from which classic hip-hop trio?
+2. The flag of Sri Lanka is one of the oldest in the world and prominently features what sword-wielding animal?
+3. Which city is located farther west?
+4. According to the RIAA, which artist has sold the most albums?
+
+## c25  (correct slots: CBDA)
+1. Which Dr. Seuss book first featured the word 'nerd' in 1950?
+2. What was the reptilian name the Brothers Gibb used before becoming the Bee Gees?
+3. Duran Duran is named after a character from the sci-fi film Barbarella. What was the character's role?
+4. What were 'Jelly Babies' originally called when first released?
+
+## c26  (correct slots: CADB)
+1. The flag of which Central American nation contains a depiction of five volcanoes?
+2. The 'Bloody Mary' mirror ritual is often speculatively linked to which historical English monarch?
+3. Before it was famously red, what colour was Clifford the Big Red Dog in Norman Bridwell's original sketch?
+4. 'I saw a werewolf with a Chinese menu in his hand.' Name the artist.
+
+## c27  (correct slots: BDAC)
+1. Which actor famously turned down the iconic role of Han Solo in 'Star Wars'?
+2. What was the original name of the influential post-punk band, Joy Division?
+3. Three of these 'Saturday Night Live' alumni have won an Emmy for acting. Who has not?
+4. A woodpecker's tongue is so long that to store it, the bird does what?
+
+## c28  (correct slots: ADBC)
+1. In Norse mythology, Loki shape-shifted into a mare and gave birth to what famous steed?
+2. Baba Yaga, the infamous witch of Slavic folklore, lives in a hut that stands on what?
+3. How old were writers Seth Rogen and Evan Goldberg when they first wrote the script for 'Superbad'?
+4. Which planet has a day longer than its year?
+
+## c29  (correct slots: DBCA)
+1. The blind inventor Ralph Teetor created what common feature, inspired by his jerky-driving lawyer?
+2. Before automated machinery, what were the young boys who manually reset pins in bowling alleys commonly called?
+3. Pavlov is famous for his work with dogs. What was the Russian scientist's lesser-known first name?
+4. What strange meaning does 'cornobble' describe?
+
+## c30  (correct slots: CBDA)
+1. What is the official, full title of the monument more commonly known as the Statue of Liberty?
+2. The nickname 'Emerald Isle' for Ireland was first coined in a 1795 poem by what Dublin-born writer?
+3. 'Clinkabell' is an old word for what?
+4. Daddy's Sauce was invented by Frederick Gibson Garton in Nottingham. What other sauce did he invent?
+
+## c31  (correct slots: CADB)
+1. To maintain the park's magic, what is the maximum distance any guest is from a bin in Disney parks?
+2. In 'The Springfield Files', what peaceful message does the supposed alien bring to the townspeople?
+3. Which retired American football quarterback played himself in 'Ace Ventura: Pet Detective' and 'Little Nicky'?
+4. For clarity at a distance, the stylised maple leaf on the Canadian flag has how many points?
+
+## c32  (correct slots: BDAC)
+1. Which member of the British Royal Family is the only one to have ever competed at Wimbledon?
+2. That frothy head of foam on a freshly poured beer is correctly called what?
+3. What colour paint is used on Disney structures to make them 'disappear' against the sky?
+4. Before it was called Google, the search engine developed by Larry Page and Sergey Brin was known as what?
+
+## c33  (correct slots: ADBC)
+1. The airline from 'Lost', Oceanic Airlines, has a logo that has appeared in many shows. Which has it NOT appeared in?
+2. Who led the British expedition that arrived at the South Pole a month after Roald Amundsen?
+3. The animated series starring Bugs Bunny is correctly spelled 'Looney' what?
+4. What simple phrase does supermodel Cara Delevingne have tattooed on the sole of her foot?
+
+## c34  (correct slots: DBCA)
+1. What manoeuvre involves dipping a spacecraft into a planet's upper atmosphere to slow down and save fuel?
+2. In American roulette, what number is directly opposite the '0' on the wheel?
+3. In Japanese folklore, how many tails does a Kitsune grow to signify its maximum power and wisdom?
+4. Which of these popular bottled water brands does not belong to Nestle?
+
+## c35  (correct slots: CBDA)
+1. What police-interrupted activity did Goldie Hawn and Kurt Russell engage in on their very first date?
+2. In the rhyme 'Pop Goes the Weasel', what does 'weasel' refer to in Cockney rhyming slang?
+3. Which Formula 1 team's pioneering active suspension in the late 1980s was so dominant it was eventually banned?
+4. Moira Rose describes a character as 'crapulent'. What is their condition?
+
+## c36  (correct slots: CADB)
+1. What is the demonym for a person from Buenos Aires?
+2. Among these unsettling food-related powers, which one genuinely belongs to a mutant in the Marvel universe?
+3. Pop star Lana Del Rey is a carefully crafted persona. Under what name did she release her first full-length album?
+4. Which future Oscar-winning actress had an uncredited role as a girl in a police station in 'Ferris Bueller's Day Off'?
+
+## c37  (correct slots: BDAC)
+1. Which famous singer was portrayed by actor Kevin Spacey in the 2004 biographical film 'Beyond the Sea'?
+2. The Chinese velveting technique to tenderise meat for stir-fries uses which common pantry staple?
+3. An Olympic-sized swimming pool must contain a minimum of how many litres of water?
+4. In hexadecimal, what colour would be displayed from the colour code '#00FF00'?
+
+## c38  (correct slots: ADBC)
+1. The famous alloy used to create Zildjian cymbals has been a closely guarded family secret since what century?
+2. What is the name of The Simpsons episode where Homer becomes an astronaut?
+3. What is the scientific name for the polar bear?
+4. Where would you typically use a zarf?

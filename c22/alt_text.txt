@@ -1,0 +1,9 @@
+c22_*_01: Quiz question: The 1956 Melbourne Olympics held its equestrian events over 9,000 miles away in what country? Four options: A Great Britain, B Sweden, C New Zealand, D Austria
+c22_*_02: Answer slide. The 1956 Melbourne Olympics held its equestrian events over 9,000 miles away in what country? Correct answer: Sweden, chosen by 20 percent. Full vote: Great Britain 40 percent, Sweden 20 percent, New Zealand 25 percent, Austria 15 percent
+c22_*_03: Quiz question: Which Beatle wrote and sang 'Why Don't We Do It in the Road' after seeing two monkeys in the street? Four options: A John, B Ringo, C George, D Paul
+c22_*_04: Answer slide. Which Beatle wrote and sang 'Why Don't We Do It in the Road' after seeing two monkeys in the street? Correct answer: Paul, chosen by 25 percent. Full vote: John 40 percent, Ringo 20 percent, George 15 percent, Paul 25 percent
+c22_*_05: Quiz question: What item of clothing did the 'Swedish Chef' from The Muppets never wear? Four options: A Striped shirt, B Bowtie, C Chef's hat, D White apron
+c22_*_06: Answer slide. What item of clothing did the 'Swedish Chef' from The Muppets never wear? Correct answer: Striped shirt, chosen by 20 percent. Full vote: Striped shirt 20 percent, Bowtie 40 percent, Chef's hat 30 percent, White apron 10 percent
+c22_*_07: Quiz question: James Watt defined 'horsepower' by observing ponies lifting coal and multiplying their power by what factor? Four options: A 1.25, B 2.0, C 1.5, D 0.75
+c22_*_08: Answer slide. James Watt defined 'horsepower' by observing ponies lifting coal and multiplying their power by what factor? Correct answer: 1.5, chosen by 20 percent. Full vote: 1.25 40 percent, 2.0 25 percent, 1.5 20 percent, 0.75 15 percent
+c22_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

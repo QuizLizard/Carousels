@@ -1,0 +1,9 @@
+c34_*_01: Quiz question: What manoeuvre involves dipping a spacecraft into a planet's upper atmosphere to slow down and save fuel? Four options: A Atmospheric Dragging, B Skimming Pass, C Gas Grazing, D Aerobraking
+c34_*_02: Answer slide. What manoeuvre involves dipping a spacecraft into a planet's upper atmosphere to slow down and save fuel? Correct answer: Aerobraking, chosen by 40 percent. Full vote: Atmospheric Dragging 45 percent, Skimming Pass 15 percent, Gas Grazing 0 percent, Aerobraking 40 percent
+c34_*_03: Quiz question: In American roulette, what number is directly opposite the '0' on the wheel? Four options: A 36, B 00, C 27, D 1
+c34_*_04: Answer slide. In American roulette, what number is directly opposite the '0' on the wheel? Correct answer: 00, chosen by 40 percent. Full vote: 36 45 percent, 00 40 percent, 27 15 percent, 1 0 percent
+c34_*_05: Quiz question: In Japanese folklore, how many tails does a Kitsune grow to signify its maximum power and wisdom? Four options: A Seven, B Thirteen, C Nine, D One Hundred
+c34_*_06: Answer slide. In Japanese folklore, how many tails does a Kitsune grow to signify its maximum power and wisdom? Correct answer: Nine, chosen by 35 percent. Full vote: Seven 40 percent, Thirteen 20 percent, Nine 35 percent, One Hundred 5 percent
+c34_*_07: Quiz question: Which of these popular bottled water brands does not belong to Nestle? Four options: A Dasani, B S.Pellegrino, C Acqua Panna, D Perrier
+c34_*_08: Answer slide. Which of these popular bottled water brands does not belong to Nestle? Correct answer: Dasani, chosen by 35 percent. Full vote: Dasani 35 percent, S.Pellegrino 40 percent, Acqua Panna 20 percent, Perrier 5 percent
+c34_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

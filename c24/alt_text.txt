@@ -1,0 +1,9 @@
+c24_*_01: Quiz question: 'Feel Good Inc.' by Gorillaz features the distinctive laugh of a member from which classic hip-hop trio? Four options: A A Tribe Called Quest, B Beastie Boys, C The Pharcyde, D De La Soul
+c24_*_02: Answer slide. 'Feel Good Inc.' by Gorillaz features the distinctive laugh of a member from which classic hip-hop trio? Correct answer: De La Soul, chosen by 25 percent. Full vote: A Tribe Called Quest 40 percent, Beastie Boys 25 percent, The Pharcyde 10 percent, De La Soul 25 percent
+c24_*_03: Quiz question: The flag of Sri Lanka is one of the oldest in the world and prominently features what sword-wielding animal? Four options: A A tiger, B A lion, C An elephant, D A peacock
+c24_*_04: Answer slide. The flag of Sri Lanka is one of the oldest in the world and prominently features what sword-wielding animal? Correct answer: A lion, chosen by 35 percent. Full vote: A tiger 50 percent, A lion 35 percent, An elephant 10 percent, A peacock 5 percent
+c24_*_05: Quiz question: Which city is located farther west? Four options: A Reykjavik, Iceland, B Dublin, Ireland, C Dakar, Senegal, D Lisbon, Portugal
+c24_*_06: Answer slide. Which city is located farther west? Correct answer: Dakar, Senegal, chosen by 25 percent. Full vote: Reykjavik, Iceland 40 percent, Dublin, Ireland 20 percent, Dakar, Senegal 25 percent, Lisbon, Portugal 15 percent
+c24_*_07: Quiz question: According to the RIAA, which artist has sold the most albums? Four options: A The Beatles, B Michael Jackson, C Pink Floyd, D Elvis Presley
+c24_*_08: Answer slide. According to the RIAA, which artist has sold the most albums? Correct answer: The Beatles, chosen by 35 percent. Full vote: The Beatles 35 percent, Michael Jackson 50 percent, Pink Floyd 10 percent, Elvis Presley 5 percent
+c24_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

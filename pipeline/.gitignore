@@ -1,0 +1,4 @@
+fonts/
+__pycache__/
+.env
+questions.json

@@ -1,0 +1,9 @@
+c15_*_01: Quiz question: What is the name of the dog that played Toto in the 1939 film 'The Wizard of Oz'? Four options: A Toto, B Teddy, C Terry, D Tommy
+c15_*_02: Answer slide. What is the name of the dog that played Toto in the 1939 film 'The Wizard of Oz'? Correct answer: Terry, chosen by 25 percent. Full vote: Toto 50 percent, Teddy 20 percent, Terry 25 percent, Tommy 5 percent
+c15_*_03: Quiz question: Which of these countries shares a border with the South American territory French Guiana? Four options: A Guyana, B Brazil, C Venezuela, D Colombia
+c15_*_04: Answer slide. Which of these countries shares a border with the South American territory French Guiana? Correct answer: Brazil, chosen by 20 percent. Full vote: Guyana 40 percent, Brazil 20 percent, Venezuela 35 percent, Colombia 5 percent
+c15_*_05: Quiz question: Who was the sister of Zeus? Four options: A Athena, B Aphrodite, C Artemis, D Hera
+c15_*_06: Answer slide. Who was the sister of Zeus? Correct answer: Hera, chosen by 20 percent. Full vote: Athena 40 percent, Aphrodite 35 percent, Artemis 5 percent, Hera 20 percent
+c15_*_07: Quiz question: Before it was the retail giant Best Buy, the company operated under what musical name? Four options: A Sound of Music, B Music City, C Stereo World, D Audio King
+c15_*_08: Answer slide. Before it was the retail giant Best Buy, the company operated under what musical name? Correct answer: Sound of Music, chosen by 15 percent. Full vote: Sound of Music 15 percent, Music City 40 percent, Stereo World 30 percent, Audio King 15 percent
+c15_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

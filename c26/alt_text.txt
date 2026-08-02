@@ -1,0 +1,9 @@
+c26_*_01: Quiz question: The flag of which Central American nation contains a depiction of five volcanoes? Four options: A Nicaragua, B Honduras, C El Salvador, D Costa Rica
+c26_*_02: Answer slide. The flag of which Central American nation contains a depiction of five volcanoes? Correct answer: El Salvador, chosen by 25 percent. Full vote: Nicaragua 40 percent, Honduras 20 percent, El Salvador 25 percent, Costa Rica 15 percent
+c26_*_03: Quiz question: The 'Bloody Mary' mirror ritual is often speculatively linked to which historical English monarch? Four options: A Mary I of England, B Mary, Queen of Scots, C Queen Elizabeth I, D Queen Victoria
+c26_*_04: Answer slide. The 'Bloody Mary' mirror ritual is often speculatively linked to which historical English monarch? Correct answer: Mary I of England, chosen by 45 percent. Full vote: Mary I of England 45 percent, Mary, Queen of Scots 55 percent, Queen Elizabeth I 0 percent, Queen Victoria 0 percent
+c26_*_05: Quiz question: Before it was famously red, what colour was Clifford the Big Red Dog in Norman Bridwell's original sketch? Four options: A Blue, B Orange, C Green, D Grey
+c26_*_06: Answer slide. Before it was famously red, what colour was Clifford the Big Red Dog in Norman Bridwell's original sketch? Correct answer: Grey, chosen by 30 percent. Full vote: Blue 45 percent, Orange 20 percent, Green 5 percent, Grey 30 percent
+c26_*_07: Quiz question: 'I saw a werewolf with a Chinese menu in his hand.' Name the artist. Four options: A David Bowie, B Warren Zevon, C Tom Waits, D Randy Newman
+c26_*_08: Answer slide. 'I saw a werewolf with a Chinese menu in his hand.' Name the artist. Correct answer: Warren Zevon, chosen by 30 percent. Full vote: David Bowie 45 percent, Warren Zevon 30 percent, Tom Waits 25 percent, Randy Newman 0 percent
+c26_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app

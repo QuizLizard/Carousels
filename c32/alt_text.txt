@@ -1,0 +1,9 @@
+c32_*_01: Quiz question: Which member of the British Royal Family is the only one to have ever competed at Wimbledon? Four options: A The Duke of Kent, B King George VI, C Princess Margaret, D Prince Philip
+c32_*_02: Answer slide. Which member of the British Royal Family is the only one to have ever competed at Wimbledon? Correct answer: King George VI, chosen by 30 percent. Full vote: The Duke of Kent 40 percent, King George VI 30 percent, Princess Margaret 25 percent, Prince Philip 5 percent
+c32_*_03: Quiz question: That frothy head of foam on a freshly poured beer is correctly called what? Four options: A Frothcap, B Spume, C Krausen, D Barm
+c32_*_04: Answer slide. That frothy head of foam on a freshly poured beer is correctly called what? Correct answer: Barm, chosen by 25 percent. Full vote: Frothcap 35 percent, Spume 30 percent, Krausen 10 percent, Barm 25 percent
+c32_*_05: Quiz question: What colour paint is used on Disney structures to make them 'disappear' against the sky? Four options: A Go-Away Green, B Vanishing Gray, C Blending Blue, D No-See-Um Navy
+c32_*_06: Answer slide. What colour paint is used on Disney structures to make them 'disappear' against the sky? Correct answer: Go-Away Green, chosen by 25 percent. Full vote: Go-Away Green 25 percent, Vanishing Gray 35 percent, Blending Blue 25 percent, No-See-Um Navy 15 percent
+c32_*_07: Quiz question: Before it was called Google, the search engine developed by Larry Page and Sergey Brin was known as what? Four options: A WebCrawler, B PageRank, C Backrub, D Googol
+c32_*_08: Answer slide. Before it was called Google, the search engine developed by Larry Page and Sergey Brin was known as what? Correct answer: Backrub, chosen by 30 percent. Full vote: WebCrawler 40 percent, PageRank 20 percent, Backrub 30 percent, Googol 10 percent
+c32_*_09: Score guide. 4 out of 4 top of the class, 2 to 3 not bad, 0 to 1 need more practice. Play the daily quiz at quizlizard.app
