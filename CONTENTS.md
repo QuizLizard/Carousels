@@ -1,4 +1,4 @@
-# Carousel batch - 20 sets, 4 questions each
+# Carousel batch - 38 sets, 4 questions each
 
 ## c01  (correct slots: CADB)
 1. According to Venus Williams, what does the name of her activewear brand, EleVen, signify?

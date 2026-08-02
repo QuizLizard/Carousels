@@ -1,0 +1,41 @@
+name: Weekly carousels
+
+on:
+  schedule:
+    - cron: '0 8 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies and fonts
+        run: |
+          pip install pillow
+          bash pipeline/setup.sh
+
+      - name: Render, push and queue
+        env:
+          FEED_URL: ${{ secrets.FEED_URL }}
+          AUTOMATION_API_TOKEN: ${{ secrets.AUTOMATION_API_TOKEN }}
+          BUFFER_TOKEN: ${{ secrets.BUFFER_TOKEN }}
+        run: python pipeline/weekly.py
+
+      - name: Commit any new carousels
+        run: |
+          git config user.name "Quiz Lizard Bot"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Weekly carousel batch"
+          git push
