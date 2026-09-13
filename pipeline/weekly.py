@@ -2,8 +2,11 @@
 """
 Quiz Lizard weekly social automation.
 
-Renders any needed carousels, pushes them, and queues a week of Buffer drafts.
-Deterministic - no AI in the loop. Intended to run from Windows Task Scheduler.
+Queues a week of Buffer drafts from carousels already on disk, then tops the
+pool up by rendering more. Deterministic - no AI in the loop.
+
+Order matters: queueing happens FIRST and never depends on rendering.
+A render failure leaves the drafts intact and only fails the job at the end.
 
 Credentials come from a .env file beside this script (never commit it):
 
@@ -12,9 +15,10 @@ Credentials come from a .env file beside this script (never commit it):
     BUFFER_TOKEN=<buffer api key>
 
 Usage:
-    python weekly.py            # render if needed, push, queue 7 days of drafts
+    python weekly.py            # queue 7 days of drafts, then top up the pool
     python weekly.py --dry-run  # report what it would do, change nothing
     python weekly.py --render-only
+    python weekly.py --queue-only
 """
 import os, sys, json, subprocess, urllib.request, urllib.error
 from pathlib import Path
@@ -32,6 +36,14 @@ RENDER_BATCH_QUESTIONS = 48    # 12 carousels; endpoint caps limit at 50
 
 DRY = "--dry-run" in sys.argv
 
+# Collected and reported at the end. Non-empty means exit code 1.
+PROBLEMS = []
+
+
+def problem(msg):
+    print(f"  !! {msg}")
+    PROBLEMS.append(msg)
+
 
 def env():
     cfg = {}
@@ -44,8 +56,11 @@ def env():
                 cfg[k.strip()] = v.strip()
     for k in ("FEED_URL", "AUTOMATION_API_TOKEN", "BUFFER_TOKEN"):
         cfg.setdefault(k, os.environ.get(k, ""))
-        if not cfg[k]:
-            sys.exit(f"Missing {k}. Set it as a GitHub secret, or in {envfile} for local runs.")
+    # Only BUFFER_TOKEN is needed to queue. The feed secrets are needed to
+    # render, and a missing one must not stop this week's drafts going out.
+    if not cfg["BUFFER_TOKEN"]:
+        sys.exit("Missing BUFFER_TOKEN. Set it as a GitHub secret, "
+                 f"or in {envfile} for local runs.")
     return cfg
 
 
@@ -55,7 +70,21 @@ def get_json(url, headers):
         with urllib.request.urlopen(req, timeout=60) as r:
             return json.loads(r.read().decode() or "[]")
     except urllib.error.HTTPError as e:
-        raise SystemExit(f"HTTP {e.code} calling {url}\n{e.read().decode()[:600]}")
+        raise RuntimeError(f"HTTP {e.code} calling {url}\n{e.read().decode()[:600]}")
+    except urllib.error.URLError as e:
+        raise RuntimeError(f"Could not reach {url}: {e.reason}")
+
+
+def post_json(url, payload, headers):
+    data = json.dumps(payload).encode()
+    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode() or "{}")
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"HTTP {e.code} calling {url}\n{e.read().decode()[:600]}")
+    except urllib.error.URLError as e:
+        raise RuntimeError(f"Could not reach {url}: {e.reason}")
 
 
 def feed_get(cfg, resource, limit=None):
@@ -76,16 +105,6 @@ def feed_mark(cfg, ids):
     post_json(cfg["FEED_URL"], {"resource": "mark-posted", "ids": ids},
               {"x-automation-token": cfg["AUTOMATION_API_TOKEN"],
                "Content-Type": "application/json"})
-
-
-def post_json(url, payload, headers):
-    data = json.dumps(payload).encode()
-    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return json.loads(r.read().decode() or "{}")
-    except urllib.error.HTTPError as e:
-        raise SystemExit(f"HTTP {e.code} calling {url}\n{e.read().decode()[:600]}")
 
 
 STATE = HERE / "state.json"
@@ -123,6 +142,19 @@ def alt_lines(folder):
     return out
 
 
+def tiktok_title(caption):
+    """First clause of the hook, capped at 80 chars.
+
+    Splitting on '.' breaks on answers containing a full stop (S.Pellegrino,
+    W.B. Yeats), so cut at the sentence boundary '. ' instead and fall back to
+    a clean truncation.
+    """
+    head = caption.split(". ")[0].strip()
+    if not head or len(head) > 80:
+        head = caption[:80].rsplit(" ", 1)[0]
+    return head[:80] or "Quiz Lizard"
+
+
 class Enum(str):
     """Marks a value that must appear unquoted in GraphQL (e.g. an enum)."""
 
@@ -148,6 +180,7 @@ def gql(v):
 
 
 def buffer_post(cfg, channel, folder, ratio, caption, title=None):
+    """Create one draft. Returns the post dict, or raises RuntimeError."""
     alts = alt_lines(folder)
     assets = []
     for i in range(1, 10):
@@ -176,11 +209,11 @@ def buffer_post(cfg, channel, folder, ratio, caption, title=None):
                     {"Authorization": f"Bearer {cfg['BUFFER_TOKEN']}",
                      "Content-Type": "application/json"})
     if res.get("errors"):
-        raise SystemExit(f"Buffer rejected {folder} ({ratio}):\n"
-                         + json.dumps(res["errors"], indent=1)[:800])
+        raise RuntimeError(f"Buffer rejected {folder} ({ratio}): "
+                           + json.dumps(res["errors"])[:400])
     payload = (res.get("data") or {}).get("createPost") or {}
     if payload.get("message"):
-        raise SystemExit(f"Buffer error on {folder} ({ratio}): {payload['message']}")
+        raise RuntimeError(f"Buffer error on {folder} ({ratio}): {payload['message']}")
     return payload.get("post", {})
 
 
@@ -191,29 +224,84 @@ def git(*args):
     subprocess.run(["git", "-C", str(REPO), *args], check=True)
 
 
+def queue_week(cfg, remaining):
+    """Create drafts for up to a week of carousels. Returns the last folder
+    fully queued on both channels, or None if nothing was queued."""
+    batch = remaining[:CAROUSELS_PER_WEEK]
+    if not batch:
+        problem("Nothing left to queue - the carousel pool is empty.")
+        return None
+    if len(batch) < CAROUSELS_PER_WEEK:
+        problem(f"Only {len(batch)} carousels available, wanted {CAROUSELS_PER_WEEK}. "
+                "Approve more questions in the admin swipe review.")
+
+    last_ok = None
+    for folder in batch:
+        cap_tt = read_local(folder, "caption_tiktok.txt")
+        cap_ig = read_local(folder, "caption_instagram.txt")
+        if not cap_tt or not cap_ig:
+            problem(f"{folder}: skipped - missing caption file")
+            continue
+        print(f"  {folder}")
+        try:
+            buffer_post(cfg, TIKTOK_CHANNEL, folder, "9x16", cap_tt, tiktok_title(cap_tt))
+            buffer_post(cfg, INSTAGRAM_CHANNEL, folder, "4x5", cap_ig)
+        except RuntimeError as e:
+            # One bad folder (or a full draft queue) must not cost the rest.
+            problem(str(e))
+            continue
+        last_ok = folder
+
+    return last_ok
+
+
 def render_more(cfg):
-    print("Rendering a new batch...")
-    rows = feed_get(cfg, "social-candidates", RENDER_BATCH_QUESTIONS)
-    if not rows:
-        print("  No approved questions left. Swipe more in the admin panel.")
+    """Top the pool up. Returns new folder names. Never raises."""
+    if not cfg.get("FEED_URL") or not cfg.get("AUTOMATION_API_TOKEN"):
+        problem("Skipping render: FEED_URL or AUTOMATION_API_TOKEN is not set.")
         return []
+    print("Rendering a new batch...")
+    try:
+        rows = feed_get(cfg, "social-candidates", RENDER_BATCH_QUESTIONS)
+    except RuntimeError as e:
+        problem(f"Feed unreachable, pool not topped up: {e}")
+        return []
+    if not rows:
+        problem("No approved questions left. Swipe more in the admin panel.")
+        return []
+
     data, ids = [], []
-    for r in rows:
-        bd = r["breakdown"] if isinstance(r["breakdown"], list) else json.loads(r["breakdown"])
-        bd = sorted(bd, key=lambda b: -int(b["pct"]))
-        data.append([r["question_text"],
-                     [[b["option"], int(b["pct"]), bool(b["is_correct"])] for b in bd]])
-        ids.append(r["question_id"])
+    try:
+        for r in rows:
+            bd = r["breakdown"] if isinstance(r["breakdown"], list) else json.loads(r["breakdown"])
+            bd = sorted(bd, key=lambda b: -int(b["pct"]))
+            data.append([r["question_text"],
+                         [[b["option"], int(b["pct"]), bool(b["is_correct"])] for b in bd]])
+            ids.append(r["question_id"])
+    except (KeyError, ValueError, TypeError) as e:
+        problem(f"Feed returned rows this script cannot read: {e}")
+        return []
+
     qfile = HERE / "questions.json"
     qfile.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
-    last = folders()[-1] if folders() else "c00"
-    start = int(last[1:])
+    before = folders()
+    start = int(before[-1][1:]) if before else 0
     if not DRY:
-        subprocess.run([sys.executable, str(HERE / "build.py"),
-                        str(qfile), str(start), str(REPO)], check=True)
+        try:
+            subprocess.run([sys.executable, str(HERE / "build.py"),
+                            str(qfile), str(start), str(REPO)], check=True)
+        except subprocess.CalledProcessError as e:
+            problem(f"build.py failed ({e.returncode}), pool not topped up.")
+            return []
+
     new = [f for f in folders() if int(f[1:]) > start]
-    if new:
+    if not new:
+        problem("build.py produced no new carousels.")
+        return []
+    try:
         feed_mark(cfg, ids)
+    except RuntimeError as e:
+        problem(f"Rendered {len(new)} carousels but could not mark questions used: {e}")
     return new
 
 
@@ -225,38 +313,37 @@ def main():
 
     last = state_get()["last_scheduled_carousel"]
     remaining = [f for f in all_folders if int(f[1:]) > int(last[1:])]
-    print(f"{len(all_folders)} carousels on disk, last queued {last}, {len(remaining)} unqueued")
+    print(f"{len(all_folders)} carousels on disk, last queued {last}, "
+          f"{len(remaining)} unqueued")
 
-    if len(remaining) < MIN_BUFFER_FOLDERS:
+    # ---- 1. Queue this week. Nothing above can stop this. ----
+    if "--render-only" not in sys.argv:
+        queued_to = queue_week(cfg, remaining)
+        if queued_to:
+            state_set(queued_to)
+            n = remaining.index(queued_to) + 1
+            print(f"Queued {n} carousels as drafts, through {queued_to}.")
+            print("Review and promote them in Buffer before they publish.")
+            remaining = remaining[n:]
+
+    # ---- 2. Top the pool up. Failures here are reported, not fatal. ----
+    if "--queue-only" not in sys.argv and len(remaining) < MIN_BUFFER_FOLDERS:
         new = render_more(cfg)
         if new:
-            git("add", "-A")
-            git("commit", "-m", f"Add carousels {new[0]}-{new[-1]}")
-            git("push")
-            remaining += new
-            print(f"  pushed {len(new)} new carousels")
+            try:
+                git("add", "-A")
+                git("commit", "-m", f"Add carousels {new[0]}-{new[-1]}")
+                git("push")
+                print(f"  pushed {len(new)} new carousels")
+            except subprocess.CalledProcessError as e:
+                problem(f"Rendered {len(new)} carousels but git push failed: {e}")
 
-    if "--render-only" in sys.argv:
-        return
-
-    batch = remaining[:CAROUSELS_PER_WEEK]
-    if not batch:
-        sys.exit("Nothing left to queue.")
-
-    for folder in batch:
-        cap_tt = read_local(folder, "caption_tiktok.txt")
-        cap_ig = read_local(folder, "caption_instagram.txt")
-        if not cap_tt or not cap_ig:
-            print(f"  {folder}: SKIPPED - missing caption file")
-            continue
-        title = cap_tt.split(".")[0][:80]
-        print(f"  {folder}")
-        buffer_post(cfg, TIKTOK_CHANNEL, folder, "9x16", cap_tt, title)
-        buffer_post(cfg, INSTAGRAM_CHANNEL, folder, "4x5", cap_ig)
-
-    state_set(batch[-1])
-    print(f"Queued {len(batch)} carousels as drafts, through {batch[-1]}.")
-    print("Review and promote them in Buffer before they publish.")
+    print(f"\n{len(remaining)} carousels will remain unqueued after this week.")
+    if PROBLEMS:
+        print(f"\nFinished with {len(PROBLEMS)} problem(s):")
+        for p in PROBLEMS:
+            print(f"  - {p}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
